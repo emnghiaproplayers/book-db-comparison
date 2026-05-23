@@ -1,8 +1,8 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NoSqlBook, NoSqlBookDocument } from './schemas/book.schema';
-import { CreateNoSqlBookDto } from './dto/create-book.dto';
+import { NoSqlBook, NoSqlBookDocument } from './schemas/book.schema.js';
+import { CreateBookDto } from './dto/create-book.dto.js';
 
 @Injectable()
 export class NoSqlBookService {
@@ -11,7 +11,7 @@ export class NoSqlBookService {
     private readonly bookModel: Model<NoSqlBookDocument>,
   ) {}
 
-  async create(createDto: CreateNoSqlBookDto): Promise<NoSqlBookDocument> {
+  async create(createDto: CreateBookDto): Promise<NoSqlBookDocument> {
     const title = createDto.title.trim();
     const authorName = createDto.authorName.trim();
 

@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { NoSqlBookService } from './nosql-book.service';
-import { CreateNoSqlBookDto } from './dto/create-book.dto';
-import { NoSqlBookResponseDto } from './dto/book-response.dto';
+import { NoSqlBookService } from './nosql-book.service.js';
+import { CreateBookDto } from './dto/create-book.dto.js';
+import { NoSqlBookResponseDto } from './dto/book-response.dto.js';
 
 @Controller('nosql/books')
 export class NoSqlBookController {
   constructor(private readonly nosqlBookService: NoSqlBookService) {}
 
   @Post()
-  async create(@Body() createDto: CreateNoSqlBookDto): Promise<NoSqlBookResponseDto> {
+  async create(@Body() createDto: CreateBookDto): Promise<NoSqlBookResponseDto> {
     const book = await this.nosqlBookService.create(createDto);
     return NoSqlBookResponseDto.fromDocument(book);
   }

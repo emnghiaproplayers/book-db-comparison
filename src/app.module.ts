@@ -4,9 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { validationSchema } from './config/validation.schema';
-import { SqlModule } from './sql/sql.module';
-import { NoSqlModule } from './nosql/nosql.module';
+import { validationSchema } from './config/validation.schema.js';
+import { SqlModule } from './sql.module.js';
+import { NoSqlModule } from './nosql.module.js';
 
 @Module({
   imports: [

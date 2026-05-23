@@ -1,9 +1,9 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SqlBook } from './entities/book.entity';
-import { SqlAuthor } from './entities/author.entity';
-import { CreateSqlBookDto } from './dto/create-book.dto';
+import { SqlBook } from './entities/book.entity.js';
+import { SqlAuthor } from './entities/author.entity.js';
+import { CreateBookDto } from './dto/create-book.dto.js';
 
 @Injectable()
 export class SqlBookService {
@@ -14,7 +14,7 @@ export class SqlBookService {
     private readonly authorRepository: Repository<SqlAuthor>,
   ) {}
 
-  async create(createBookDto: CreateSqlBookDto): Promise<SqlBook> {
+  async create(createBookDto: CreateBookDto): Promise<SqlBook> {
     const authorName = createBookDto.authorName.trim();
     const title = createBookDto.title.trim();
 
@@ -38,7 +38,8 @@ export class SqlBookService {
       author,
     });
 
-    return this.bookRepository.save(book);
+    const savedBook = await this.bookRepository.save(book);
+    return this.findOne(savedBook.id);
   }
 
   async findAll(): Promise<SqlBook[]> {

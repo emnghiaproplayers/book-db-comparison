@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type NoSqlBookDocument = NoSqlBook & Document;
 
@@ -14,8 +14,19 @@ export class NoSqlBook {
   @Prop({ type: [String], default: [] })
   tags: string[];
 
-  @Prop({ type: MongooseSchema.Types.Mixed, default: {} })
-  metadata: Record<string, any>;
+  @Prop({
+    type: {
+      publisher: { type: String, default: 'Unknown' },
+      pages: { type: Number, default: 0 },
+    },
+    default: { publisher: 'Unknown', pages: 0 },
+    _id: false,
+  })
+  metadata: {
+    publisher: string;
+    pages: number;
+    [key: string]: any;
+  };
 }
 
 export const NoSqlBookSchema = SchemaFactory.createForClass(NoSqlBook);

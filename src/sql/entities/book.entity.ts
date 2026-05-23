@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
-import { SqlAuthor } from './author.entity';
+import { SqlAuthor } from './author.entity.js';
 
 @Entity('books')
 @Unique(['title', 'author'])
